@@ -31,7 +31,7 @@ class UpdateUsersCommand extends Command
      */
     public function handle()
     {
-        $rowsPerChunk = 10;
+        $rowsPerChunk = 1000;
         $timezones = TimezoneEnum::getValues();
 
         DB::transaction(function () use ($rowsPerChunk, $timezones) {
