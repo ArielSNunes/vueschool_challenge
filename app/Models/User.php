@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\TimezoneEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'time_zone'
     ];
 
     /**
@@ -42,6 +45,15 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'time_zone' => TimezoneEnum::class
         ];
+    }
+
+    public function setTimezoneAttribute($value)
+    {
+        if (!TimezoneEnum::tryFrom($value)) {
+            throw new \InvalidArgumentException("Invalid timezone value");
+        }
+        $this->attributes['time_zone'] = $value;
     }
 }
