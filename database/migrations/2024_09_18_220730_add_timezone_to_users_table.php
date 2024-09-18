@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('timezone')
+            $table->string('time_zone')
                 ->default(TimezoneEnum::CET->value)
                 ->index('users_timezone_idx');
         });
@@ -26,7 +26,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropIndex("users_timezone_idx");
-            $table->dropColumn('timezone');
+            $table->dropColumn('time_zone');
         });
     }
 };
